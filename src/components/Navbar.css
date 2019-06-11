@@ -1,0 +1,59 @@
+.navbar_wrapper {
+    background: teal;
+    margin-top: -16px;
+    height: 50px;
+}
+
+.reduced_navbar_wrapper {
+    padding-top: 10px;
+    padding-bottom: 6px;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+}
+
+.navbar li:not(:last-child):not(:first-child):not(.navbar_brand_icon_wrapper) {
+    margin-right: 10px;
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+}
+
+.navbar_brand_icon_wrapper {
+    margin-right: auto;
+}
+
+.navbar_brand_icon {
+    width: 30px;
+    height: 30px;
+}
+
+.navbar_item {
+    display: flex;
+    align-items: center;
+}
+
+.navbar_item_icon {
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+}
+
+.navbar_item_text {
+    padding-top: 3px;
+}
+
+.navbar_item_button {
+    height: 25px;
+    width: 70px;
+    font-size: 15px;
+    font-weight: 400;
+    background: transparent;
+    border: 1px solid black;
+    border-radius: 4px;
+}
