@@ -48,6 +48,14 @@ ul {
     padding-top: 3px;
 }
 
+.navbar_buttons {
+    display: flex;
+}
+
+.navbar_buttons_when_loggedin {
+    display: flex;
+}
+
 .navbar_item_button {
     height: 25px;
     width: 70px;
@@ -56,4 +64,5 @@ ul {
     background: transparent;
     border: 1px solid black;
     border-radius: 4px;
+    margin-right: 10px;
 }
