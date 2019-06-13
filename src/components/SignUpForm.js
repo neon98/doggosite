@@ -1,6 +1,7 @@
 import React from 'react';
-import './SignUpForm.css'
+import '../stylesheets/SignUpForm.css'
 import Popup from 'reactjs-popup';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default class SignUpForm extends React.Component {
 
@@ -74,7 +75,10 @@ export default class SignUpForm extends React.Component {
     render() {
         var contentStyle = {
             width: '300px', 
-            marginTop: '100px'
+            marginTop: '100px',
+            borderRadius: '4px',
+            boxShadow: '0 8px 16px 0 rgba(0, 0, 0, 0.2)',
+            border:'none'
         }
         return (
             <Popup
@@ -83,20 +87,19 @@ export default class SignUpForm extends React.Component {
                 onClose={this.props.close}
                 modal
             >
-                <div className="modal">
-                    <button className="close" onClick={this.props.close}>&times;</button>
-                    <div className="header"> Sign Up </div>
+                <div className="signUpModal">
+                    <div className="header"> Sign Up</div>
                     <div className="content">
                         <form id="signUpForm">
-                            <div className="input_field" style={{ display: "flex" }}>
+                            <div className="input_field">
                                 <label htmlFor="username">User name</label>
-                                <input type="text" id="username" onChange={this.handleChange} />
+                                <input type="text" id="username" onChange={this.handleChange}/>
                                 {
                                     this.state.username === '' ? null
                                         : this.state.validUserName
-                                            ? <p style={{ color: "green" }}>Valid</p>
-                                            : <p style={{ color: "red" }}>Invalid</p>
-                                }
+                                            ? <p style={{ color: "green" }}><FontAwesomeIcon icon="check" /> Valid Username</p>
+                                            : <p style={{ color: "red" }}> <FontAwesomeIcon icon="exclamation-circle" /> Invalid Username</p>
+                                }   
                             </div>
                             <div className="input_field">
                                 <label htmlFor="email">Email</label>
@@ -116,15 +119,10 @@ export default class SignUpForm extends React.Component {
                                 !this.state.email ||
                                 !this.state.password
                             }
+                            className="button"
                             onClick={this.handleSubmit}
                         >
                             Sign Up
-                        </button>
-                        <button
-                            className="button"
-                            onClick={this.props.close}
-                        >
-                            Close
                         </button>
                     </div>
                 </div>

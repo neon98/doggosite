@@ -1,5 +1,5 @@
 import React from 'react';
-import './LogInForm.css';
+import '../stylesheets/LogInForm.css';
 import Popup from 'reactjs-popup';
 
 export default class LogInForm extends React.Component {
@@ -52,7 +52,10 @@ export default class LogInForm extends React.Component {
     render() {
         var contentStyle = {
             width: '300px', 
-            marginTop: '100px'
+            marginTop: '100px',
+            borderRadius: '4px',
+            boxShadow: '0 8px 16px 0 rgba(0, 0, 0, 0.2)',
+            border:'none'
         }
         return (
             <Popup
@@ -61,9 +64,8 @@ export default class LogInForm extends React.Component {
                 onClose={this.props.close}
                 modal
             >
-                <div className="modal">
-                    <button className="close" onClick={this.props.close}>&times;</button>
-                    <div className="header"> Login </div>
+                <div className="loginModal container">
+                    <div className="header">Login </div>
                     <div className="content">
                         <form id="loginForm">
                             <div className="input_field">
@@ -77,12 +79,11 @@ export default class LogInForm extends React.Component {
                         </form>
                     </div>
                     <div className="actions">
-                        <button onClick={this.handleSubmit}>Login</button>
-                        <button
+                        <button 
                             className="button"
-                            onClick={this.props.close}
+                            onClick={this.handleSubmit}
                         >
-                            Close
+                            Login
                         </button>
                     </div>
                 </div>
