@@ -1,0 +1,65 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    margin: 0;
+    height: 50px;
+    background: white;
+    padding: 0;
+    list-style: none;
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.navbar li:not(:last-child):not(:first-child):not(.navbar_brand_icon_wrapper) {
+    margin-right: 10px;
+}
+
+.navbar_brand_icon_wrapper {
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: auto;
+}
+
+.navbar_brand_icon {
+    width: 30px;
+    height: 30px;
+}
+
+.navbar_item {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    cursor: pointer;
+}
+
+.navbar_item_icon {
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+}
+
+.navbar_item_text {
+    padding-top: 3px;
+    font-size: 15px;
+}
+
+.navbar_buttons {
+    display: flex;
+}
+
+.navbar_buttons_when_loggedin {
+    display: flex;
+}
+
+.navbar_item_button {
+    cursor: pointer;
+    height: 25px;
+    width: 70px;
+    font-size: 15px;
+    font-weight: 400;
+    background: transparent;
+    border: 1px solid black;
+    border-radius: 4px;
+    margin-right: 10px;
+    outline: none;
+}
