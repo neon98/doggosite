@@ -6,21 +6,25 @@ import config from './config';
 import Navbar from './components/Navbar';
 import LogInForm from './components/LogInForm';
 import SignUpForm from './components/SignUpForm';
-// import BreedCard from './components/BreedCard';
+import ProfilePage from './components/ProfilePage';
+import HomePage from './components/HomePage';
 import OurCommunityPage from './components/OurCommunityPage';
+import LilOnesPage from './components/LilOnesPage';
+import TweetsPage from './components/TweetsPage';
 
 import fontawesome from '@fortawesome/fontawesome'
-import { faCheck, faExclamationCircle } from '@fortawesome/fontawesome-free-solid'
+import { faCheck, faExclamationCircle, faPencilAlt, faPlus } from '@fortawesome/fontawesome-free-solid'
 
 import './App.css';
 
-fontawesome.library.add(faCheck, faExclamationCircle);
+fontawesome.library.add(faCheck, faExclamationCircle, faPencilAlt, faPlus);
 firebase.initializeApp(config);
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      usermode:'visitor',
       user: {},
       openLoginModal: false,
       openSignUpModal: false,
@@ -29,7 +33,9 @@ class App extends React.Component {
     }
     this.setUser = this.setUser.bind(this);
     this.resetUser = this.resetUser.bind(this);
+    
     this.setPage = this.setPage.bind(this);
+    
     this.openLoginModal = this.openLoginModal.bind(this);
     this.closeLoginModal = this.closeLoginModal.bind(this);
     this.openSignUpModal = this.openSignUpModal.bind(this);
@@ -38,6 +44,7 @@ class App extends React.Component {
 
   setUser(user) {
     this.setState({
+      // usermode: 'registeres'
       user: user
     })
   }
@@ -71,25 +78,29 @@ class App extends React.Component {
       openSignUpModal: false
     })
   }
+
   render() {
-    // var currentPage;
-    // switch (this.state.currentPage) {
-    //   case "Home":
-    //     currentPage = <p>Hello from Home!</p>
-    //     break;
-    //   case "Our Community":
-    //     currentPage = <p>Hello from Our Community!</p>
-    //     break;
-    //   case "Lil Ones":
-    //     currentPage = <p>Hello from Lil Ones!</p>
-    //     break;
-    //   case "Tweets":
-    //     currentPage = <p>Hello from Tweets!</p>
-    //     break;
-    //   default:
-    //     currentPage = <p>Hello from Home!</p>
-    //     break;
-    // }
+    var currentPage;
+    switch (this.state.currentPage) {
+      case "Home":
+        currentPage = <HomePage/>
+        break;
+      case "Our Community":
+        currentPage = <OurCommunityPage/>
+        break;
+      case "Lil Ones":
+        currentPage = <LilOnesPage/>
+        break;
+      case "Tweets":
+        currentPage = <TweetsPage/>
+        break;
+      case "Profile":
+        currentPage = <ProfilePage/>
+        break;
+      default:
+        currentPage = <HomePage/>
+        break;
+    }
     return (
       <div>
         <Media
@@ -126,7 +137,10 @@ class App extends React.Component {
           />
         </div>
         <div className="content">
-          <OurCommunityPage/>
+          {
+            <ProfilePage/>
+            // currentPage
+          }
         </div>
       </div>);
   };
