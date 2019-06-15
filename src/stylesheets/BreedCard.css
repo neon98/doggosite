@@ -1,7 +1,6 @@
 .card {
     border-radius: 4px;
-    /* width: 350px; */
-    margin: 10px;
+    margin: 10px 3px;
     box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, 0.2);
     word-wrap: break-word;
     -webkit-column-break-inside: avoid;
@@ -12,38 +11,39 @@
 
 .card_header {
     color: black;
-    padding: 10px 10px 5px 10px;
+    padding: 10px;
     word-wrap: break-word;
 }
 
 .card_header>div {
     display: flex;
     flex-wrap: wrap;
+    justify-content: left;
+    align-items: center;
 }
 
 .card_header>div>.breed_name_title {
-    padding: 0;
-    margin: 0;
+    margin: 0 5px 5px 0;
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 5px;
 }
 
 .card_header>div>.breed_group_label {
-    padding: 5px 6px 3px 6px;
-    margin: 5px;
-    font-size: 10px;
-    background: teal;
-    color: white;
+    padding: 2px 6px 4px 6px;
+    margin: 0;
+    font-size: 12px;
+    background: white;
+    color: teal;
     border-radius: 4px;
     font-weight: bold;
-    height: 15px;
+    height: 13px;
+    border: 2px solid teal;
 }
 
 .card_header>.card_subtitle {
     padding: 0;
-    margin: 0;
-    margin-bottom: 5px;
+    margin: 5px 0 0 0;
+    /* margin-bottom: 5px; */
     font-size: 14px;
     font-weight: 400;
     color: gray;
@@ -52,7 +52,7 @@
 
 .card_image {
     width: 100%;
-    height: 350px;
+    height: 250px;
 }
 
 .card_content {
@@ -62,15 +62,12 @@
 
 .card_content_information_div {
     display: flex;
-    /* flex-wrap: wrap; */
     justify-content: left;
     padding: 10px 0px;
 }
 
 .card_content_information_div>div {
     margin-right: auto;
-    /* width: 100%; */
-    /* word-wrap: break-word; */
 }
 
 .card_content_information_div>div>.bred_for_title {
@@ -79,18 +76,13 @@
     color: #505050;
     font-size: 16px;
     font-weight: bold;
-    /* width: 100%; */
-    /* word-wrap: break-word; */
 }
 
 .card_content_information_div>div>.bred_for_value {
     padding: 0;
     margin: 0;
     color: gray;
-    /* font-style: italic; */
     font-size: 14px;
-    /* width: 100%; */
-    /* word-wrap: break-word; */
 }
 
 .card_content_information_list {
@@ -98,16 +90,14 @@
     margin: 0;
     list-style: none;
     display: flex;
-    /* flex-wrap: wrap; */
-    /* width: 100%; */
     justify-content: space-between;
 }
 
 .card_content_information_list_item {
     display: flex;
-    /* flex-wrap: wrap; */
-    /* width: 100%; */
-    padding: 5px 0px;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0px;
 }
 
 .card_content_information_list_item>img {
@@ -116,13 +106,8 @@
 }
 
 .card_content_information_list_item>p {
-    margin: 0;
-    padding: 0;
+    margin: 0 3px;
     font-size: 13px;
-    padding-top: 5px;
-    padding-left: 2px;
     color: #505050;
     font-weight: bold;
-    /* word-wrap: break-word; */
-    /* width: 100%; */
 }

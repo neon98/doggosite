@@ -1,0 +1,54 @@
+doggoID: 'blacblacasapfj',
+                doggoname: 'Doggoname',
+                doggobreed: 'Breed',
+                bio: ' Vivamus sed tincidunt sem. Mauris ornare ultrices mauris at ullamcorper. Nulla sit amet justo vel tellus pulvinar ullamcorper.',
+                posts: [
+                    {
+                        postID: "postid1",
+                        imageURL: 'https://images.pexels.com/photos/356378/pexels-photo-356378.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500',
+                        caption: 'Vivamus sed tincidunt sem. Mauris ornare ultrices mauris at ullamcorper.',
+                        treats: 2,
+                        boops: 3,
+                        pats: 4
+                    },
+                    {
+                        postID: "postid2",
+                        imageURL: 'https://images.pexels.com/photos/356378/pexels-photo-356378.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500',
+                        caption: 'Vivamus sed tincidunt sem. Mauris ornare ultrices mauris at ullamcorper.',
+                        treats: 2,
+                        boops: 3,
+                        pats: 4
+                    },
+                    {
+                        postID: "postid3",
+                        imageURL: 'https://images.pexels.com/photos/356378/pexels-photo-356378.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500',
+                        caption: 'Vivamus sed tincidunt sem. Mauris ornare ultrices mauris at ullamcorper.',
+                        treats: 2,
+                        boops: 3,
+                        pats: 4
+                    },
+                    {
+                        postID: "postid1",
+                        imageURL: 'https://images.pexels.com/photos/356378/pexels-photo-356378.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500',
+                        caption: 'Vivamus sed tincidunt sem. Mauris ornare ultrices mauris at ullamcorper.',
+                        treats: 2,
+                        boops: 3,
+                        pats: 4
+                    },
+                    {
+                        postID: "postid2",
+                        imageURL: 'https://images.pexels.com/photos/356378/pexels-photo-356378.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500',
+                        caption: 'Vivamus sed tincidunt sem. Mauris ornare ultrices mauris at ullamcorper.',
+                        treats: 2,
+                        boops: 3,
+                        pats: 4
+                    },
+                    {
+                        postID: "postid3",
+                        imageURL: 'https://images.pexels.com/photos/356378/pexels-photo-356378.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500',
+                        caption: 'Vivamus sed tincidunt sem. Mauris ornare ultrices mauris at ullamcorper.',
+                        treats: 2,
+                        boops: 3,
+                        pats: 4
+                    }
+                ]

@@ -47,24 +47,29 @@ export default class BreedCard extends React.Component {
                     <BreedCardImage id={this.props.breed.id} />
                 </div>
                 <div className="card_content">
-                    <div className="card_content_information_div">
-                        {
-                            bred_for ?
-                                <div >
-                                    <p className="bred_for_title">Bred for</p>
-                                    <p className="bred_for_value">{bred_for}</p>
-                                </div>
-                                : null
-                        }
-                        {
-                            origin ?
-                                <div>
-                                    <p className="bred_for_title">Origin</p>
-                                    <p className="bred_for_value">{origin}</p>
-                                </div>
-                                : null
-                        }
-                    </div>
+                    {
+                        bred_for || origin ?
+                            <div className="card_content_information_div">
+                                {
+                                    bred_for ?
+                                        <div >
+                                            <p className="bred_for_title">Bred for</p>
+                                            <p className="bred_for_value">{bred_for}</p>
+                                        </div>
+                                        : null
+                                }
+                                {
+                                    origin ?
+                                        <div>
+                                            <p className="bred_for_title">Origin</p>
+                                            <p className="bred_for_value">{origin}</p>
+                                        </div>
+                                        : null
+                                }
+                            </div>
+                            : null
+                    }
+
                     <ul className="card_content_information_list">
                         {
                             life_span ?

@@ -2,44 +2,17 @@ import React from 'react';
 
 import paw from '../assets/paw.png'
 import home from '../assets/home.png'
-import dog from '../assets/dog.png'
+// import breeds from '../assets/breeds.png'
 // import puppy from '../assets/puppy.png'
 import tweet from '../assets/tweet.png'
 import puppy from '../assets/puppy2.png'
+import breeds from '../assets/community.png';
 
 import '../stylesheets/Navbar.css';
 
 
 export default class Navbar extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleLogIn = this.handleLogIn.bind(this);
-        this.handleLogOut = this.handleLogOut.bind(this);
-        this.handleSignUp = this.handleSignUp.bind(this);
-        this.handleProfile = this.handleProfile.bind(this);
-        this.click = this.click.bind(this);
-    }
-
-    handleLogIn(event) {
-        this.props.openLoginModal();
-    }
-    handleLogOut(event) {
-        this.props.resetUser();
-    }
-    handleProfile(event) {
-
-    }
-    click(str) {
-        console.log(str);
-    }
-    handleSignUp(event) {
-        this.props.openSignUpModal();
-    }
-    isEmptyUserObject(user) {
-        return (Object.keys(user).length === 0 && user.constructor === Object);
-    }
     render() {
-
         return (
             <div className={this.props.mobileUI ? "navbar_wrapper reduced_navbar_wrapper" : "navbar_wrapper"}>
                 <ul className="navbar">
@@ -57,7 +30,7 @@ export default class Navbar extends React.Component {
                     </li>
                     <li>
                         <div className="navbar_item" onClick={() => { this.props.setPage("Our Community") }}>
-                            <img src={dog} alt="breeds" className="navbar_item_icon" />
+                            <img src={breeds} alt="breeds" className="navbar_item_icon" style={{height:'25px', width:'30px'}}/>
                             {
                                 this.props.mobileUI ? null :
                                     <p className="navbar_item_text">Our Community</p>
@@ -83,16 +56,20 @@ export default class Navbar extends React.Component {
                         </div>
                     </li>
                     {
-                        !this.isEmptyUserObject(this.props.user) ?
+                        this.props.username ?
                             <div className="navbar_buttons">
                                 <li>
                                     <div className="navbar_item">
-                                        <button className="navbar_item_button" style={{ width: 'auto' }}> {this.props.user.username[0]} </button>
+                                        <button 
+                                            className="navbar_item_button" 
+                                            style={{ width: 'auto' }}
+                                            onClick={() => { this.props.setPage("Profile") }}
+                                        > {this.props.username[0]} </button>
                                     </div>
                                 </li>
                                 <li>
                                     <div className="navbar_item">
-                                        <button className="navbar_item_button" onClick={this.handleLogOut}> Log out </button>
+                                        <button className="navbar_item_button" onClick={() => { this.props.resetUser() }}> Log out </button>
                                     </div>
                                 </li>
                             </div>
@@ -100,12 +77,12 @@ export default class Navbar extends React.Component {
                             <div className="navbar_buttons">
                                 <li>
                                     <div className="navbar_item">
-                                        <button className="navbar_item_button" onClick={this.handleLogIn}> Login </button>
+                                        <button className="navbar_item_button" onClick={() => {this.props.openLoginModal()}}> Login </button>
                                     </div>
                                 </li>
                                 <li>
                                     <div className="navbar_item">
-                                        <button className="navbar_item_button" onClick={this.handleSignUp}> Sign Up </button>
+                                        <button className="navbar_item_button" onClick={() => {this.props.openSignUpModal()}}> Sign Up </button>
                                     </div>
                                 </li>
                             </div>
