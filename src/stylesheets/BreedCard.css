@@ -2,7 +2,7 @@
     border-radius: 4px;
     /* width: 350px; */
     margin: 10px;
-    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, 0.2);
     word-wrap: break-word;
     -webkit-column-break-inside: avoid;
     -moz-column-break-inside: avoid;
@@ -25,23 +25,19 @@
     padding: 0;
     margin: 0;
     font-size: 24px;
-    font-weight: 500;
+    font-weight: bold;
     margin-bottom: 5px;
-    /* width: 100%; */
-    /* word-wrap: break-word; */
 }
 
 .card_header>div>.breed_group_label {
-    padding: 4px 2px 3px 2px;
+    padding: 5px 6px 3px 6px;
     margin: 5px;
     font-size: 10px;
-    background: lightgray;
+    background: teal;
     color: white;
     border-radius: 4px;
     font-weight: bold;
     height: 15px;
-    /* width: 100%; */
-    /* word-wrap: break-word; */
 }
 
 .card_header>.card_subtitle {
@@ -51,7 +47,6 @@
     font-size: 14px;
     font-weight: 400;
     color: gray;
-    /* font-style: italic; */
     word-wrap: break-word;
 }
 
@@ -83,6 +78,7 @@
     margin: 0;
     color: #505050;
     font-size: 16px;
+    font-weight: bold;
     /* width: 100%; */
     /* word-wrap: break-word; */
 }
@@ -126,6 +122,7 @@
     padding-top: 5px;
     padding-left: 2px;
     color: #505050;
+    font-weight: bold;
     /* word-wrap: break-word; */
     /* width: 100%; */
 }

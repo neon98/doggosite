@@ -17,7 +17,7 @@ export default class SignUpForm extends React.Component {
             username: '',
             email: '',
             password: '',
-            validUserName: false
+            validusername: false
         };
     }
 
@@ -26,7 +26,7 @@ export default class SignUpForm extends React.Component {
             [event.target.id]: event.target.value
         });
         if (event.target.id === "username") {
-            this.verifyUsername(event.target.value);
+            this.verifyusername(event.target.value);
         }
     }
 
@@ -35,17 +35,17 @@ export default class SignUpForm extends React.Component {
         this.signUp();
     }
 
-    verifyUsername(username) {
+    verifyusername(username) {
         var usersRef = this.props.firebase.firestore().collection('users');
         usersRef.where('username', '==', username).get()
             .then(snapshot => {
                 if (!snapshot.empty) {
                     this.setState({
-                        validUserName: false
+                        validusername: false
                     })
                 } else {
                     this.setState({
-                        validUserName: true
+                        validusername: true
                     })
                 }
             })
@@ -57,10 +57,17 @@ export default class SignUpForm extends React.Component {
             this.state.password
         ).then(data => {
             this.props.firebase.firestore().collection('users').doc(data.user.uid).set({
-                username: this.state.username
+                username: this.state.username,
+                bio: '',
+                breedname: '',
+                posts: []
             }).then(() => {
-
-                this.props.setUser({ username: this.state.username });
+                this.props.setUser({
+                    username: this.state.username,
+                    bio: '',
+                    breedname: '',
+                    posts: []
+                });
                 this.setState(this.initialState);
                 document.getElementById('signUpForm').reset();
                 this.props.close();
@@ -74,11 +81,11 @@ export default class SignUpForm extends React.Component {
 
     render() {
         var contentStyle = {
-            width: '300px', 
+            width: '300px',
             marginTop: '100px',
             borderRadius: '4px',
             boxShadow: '0 8px 16px 0 rgba(0, 0, 0, 0.2)',
-            border:'none'
+            border: 'none'
         }
         return (
             <Popup
@@ -92,14 +99,14 @@ export default class SignUpForm extends React.Component {
                     <div className="content">
                         <form id="signUpForm">
                             <div className="input_field">
-                                <label htmlFor="username">User name</label>
-                                <input type="text" id="username" onChange={this.handleChange}/>
+                                <label htmlFor="username">name</label>
+                                <input type="text" id="username" onChange={this.handleChange} />
                                 {
                                     this.state.username === '' ? null
-                                        : this.state.validUserName
-                                            ? <p style={{ color: "green" }}><FontAwesomeIcon icon="check" /> Valid Username</p>
-                                            : <p style={{ color: "red" }}> <FontAwesomeIcon icon="exclamation-circle" /> Invalid Username</p>
-                                }   
+                                        : this.state.validusername
+                                            ? <p style={{ color: "green" }}><FontAwesomeIcon icon="check" /> Valid username</p>
+                                            : <p style={{ color: "red" }}> <FontAwesomeIcon icon="exclamation-circle" /> Invalid username</p>
+                                }
                             </div>
                             <div className="input_field">
                                 <label htmlFor="email">Email</label>
@@ -114,7 +121,7 @@ export default class SignUpForm extends React.Component {
                     <div className="actions">
                         <button
                             disabled={
-                                !this.state.validUserName ||
+                                !this.state.validusername ||
                                 !this.state.username ||
                                 !this.state.email ||
                                 !this.state.password

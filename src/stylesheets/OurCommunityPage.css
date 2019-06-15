@@ -1,13 +1,10 @@
 .community_page_container {
-    /* display: flex; */
-    /* flex-flow: row wrap; */
     width: 90%;
     margin: 2% auto;
     overflow: hidden;
     column-count: 3;
     column-gap: 0.4em;
     column-fill: auto;
-    /* column-fill: auto; */
     -webkit-column-count: 3;
     -webkit-column-gap: 0.4em;
     -webkit-column-fill: auto;

@@ -24,33 +24,33 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      usermode:'visitor',
-      user: {},
+      usermode: 'visitor',
+      username: '',
+      currentPage: 'Home',
       openLoginModal: false,
       openSignUpModal: false,
-      mobileUI: false,
-      currentPage: 'Home'
+      mobileUI: false
     }
+
     this.setUser = this.setUser.bind(this);
     this.resetUser = this.resetUser.bind(this);
-    
     this.setPage = this.setPage.bind(this);
-    
+
     this.openLoginModal = this.openLoginModal.bind(this);
     this.closeLoginModal = this.closeLoginModal.bind(this);
     this.openSignUpModal = this.openSignUpModal.bind(this);
     this.closeSignUpModal = this.closeSignUpModal.bind(this);
   }
 
-  setUser(user) {
+  setUser(username) {
     this.setState({
-      // usermode: 'registeres'
-      user: user
+      usermode: 'registered',
+      username: username
     })
   }
   resetUser() {
     this.setState({
-      user: {}
+      username: ''
     })
   }
   setPage(page) {
@@ -78,27 +78,39 @@ class App extends React.Component {
       openSignUpModal: false
     })
   }
-
+  componentDidMount() {
+    var username = localStorage.getItem('doggositeuser');
+    if (username) {
+      this.setUser(username)
+    }
+  }
   render() {
+    // console.log(this.state.username)
     var currentPage;
     switch (this.state.currentPage) {
       case "Home":
-        currentPage = <HomePage/>
+        currentPage = <HomePage />
         break;
       case "Our Community":
-        currentPage = <OurCommunityPage/>
+        currentPage = <OurCommunityPage />
         break;
       case "Lil Ones":
-        currentPage = <LilOnesPage/>
+        currentPage = <LilOnesPage />
         break;
       case "Tweets":
-        currentPage = <TweetsPage/>
+        currentPage = <TweetsPage />
         break;
       case "Profile":
-        currentPage = <ProfilePage/>
+        currentPage =
+          <ProfilePage
+            firebase={firebase}
+            isProfileOwner={true}
+            profileOwner={this.state.username}
+            currentUser={this.state.username}
+          />
         break;
       default:
-        currentPage = <HomePage/>
+        currentPage = <HomePage />
         break;
     }
     return (
@@ -114,7 +126,7 @@ class App extends React.Component {
         />
         <div className="header">
           <Navbar
-            user={this.state.user}
+            username={this.state.username}
             openLoginModal={this.openLoginModal}
             openSignUpModal={this.openSignUpModal}
             resetUser={this.resetUser}
@@ -138,8 +150,12 @@ class App extends React.Component {
         </div>
         <div className="content">
           {
-            <ProfilePage/>
-            // currentPage
+            // <ProfilePage
+            //   isProfileOwner={true}
+            //   profileOwner={this.state.user}
+            //   currentUser={this.state.user}
+            // />
+            currentPage
           }
         </div>
       </div>);

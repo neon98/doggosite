@@ -36,7 +36,9 @@ export default class LogInForm extends React.Component {
         ).then(data => {
             this.props.firebase.firestore().collection('users').doc(data.user.uid).get()
                 .then(doc => {
-                    this.props.setUser(doc.data());
+                    var user = doc.data();
+                    this.props.setUser(user.username);
+                    localStorage.setItem('doggositeuser', user.username)
                     document.getElementById('loginForm').reset();
                     this.setState(this.initialState);
                     this.props.close();
@@ -50,6 +52,7 @@ export default class LogInForm extends React.Component {
     }
 
     render() {
+        
         var contentStyle = {
             width: '300px', 
             marginTop: '100px',

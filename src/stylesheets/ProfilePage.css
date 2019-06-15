@@ -58,6 +58,7 @@
 }
 
 .profile_info_header>.edit_icon {
+    cursor: pointer;
     color: gray;
     margin: 12px 5px 5px 5px;
 }
