@@ -34,18 +34,11 @@ export default class LogInForm extends React.Component {
             this.state.email,
             this.state.password
         ).then(data => {
-            this.props.firebase.firestore().collection('users').doc(data.user.uid).get()
-                .then(doc => {
-                    var user = doc.data();
-                    this.props.setUser(user.username);
-                    localStorage.setItem('doggositeuser', user.username)
-                    document.getElementById('loginForm').reset();
-                    this.setState(this.initialState);
-                    this.props.close();
-                })
-                .catch(error => {
-                    alert(error);
-                });
+            this.props.setUserID(data.user.uid);
+            localStorage.setItem('doggositeuser', data.user.uid);
+            document.getElementById('loginForm').reset();
+            this.setState(this.initialState);
+            this.props.close();
         }).catch(function (error) {
             console.log(error)
         })

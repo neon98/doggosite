@@ -2,10 +2,8 @@ import React from 'react';
 
 import paw from '../assets/paw.png'
 import home from '../assets/home.png'
-// import breeds from '../assets/breeds.png'
-// import puppy from '../assets/puppy.png'
 import tweet from '../assets/tweet.png'
-import puppy from '../assets/puppy2.png'
+import puppy from '../assets/puppy.png'
 import breeds from '../assets/community.png';
 
 import '../stylesheets/Navbar.css';
@@ -56,7 +54,7 @@ export default class Navbar extends React.Component {
                         </div>
                     </li>
                     {
-                        this.props.username ?
+                        this.props.userID ?
                             <div className="navbar_buttons">
                                 <li>
                                     <div className="navbar_item">
@@ -64,7 +62,7 @@ export default class Navbar extends React.Component {
                                             className="navbar_item_button" 
                                             style={{ width: 'auto' }}
                                             onClick={() => { this.props.setPage("Profile") }}
-                                        > {this.props.username[0]} </button>
+                                        > {this.props.userID[0]} </button>
                                     </div>
                                 </li>
                                 <li>

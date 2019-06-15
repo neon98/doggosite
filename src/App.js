@@ -25,15 +25,15 @@ class App extends React.Component {
     super();
     this.state = {
       usermode: 'visitor',
-      username: '',
+      userID: '',
       currentPage: 'Home',
       openLoginModal: false,
       openSignUpModal: false,
       mobileUI: false
     }
 
-    this.setUser = this.setUser.bind(this);
-    this.resetUser = this.resetUser.bind(this);
+    this.setUserID = this.setUserID.bind(this);
+    this.resetUserID = this.resetUserID.bind(this);
     this.setPage = this.setPage.bind(this);
 
     this.openLoginModal = this.openLoginModal.bind(this);
@@ -41,17 +41,17 @@ class App extends React.Component {
     this.openSignUpModal = this.openSignUpModal.bind(this);
     this.closeSignUpModal = this.closeSignUpModal.bind(this);
   }
-
-  setUser(username) {
+  setUserID(userID) {
     this.setState({
       usermode: 'registered',
-      username: username
-    })
+      userID: userID
+    });
   }
-  resetUser() {
+  resetUserID() {
     this.setState({
-      username: ''
-    })
+      usermode: 'visitor',
+      userID: ''
+    });
   }
   setPage(page) {
     this.setState({
@@ -79,13 +79,12 @@ class App extends React.Component {
     })
   }
   componentDidMount() {
-    var username = localStorage.getItem('doggositeuser');
-    if (username) {
-      this.setUser(username)
+    var userID = localStorage.getItem('doggositeuser');
+    if (userID) {
+      this.setUserID(userID)
     }
   }
   render() {
-    // console.log(this.state.username)
     var currentPage;
     switch (this.state.currentPage) {
       case "Home":
@@ -105,8 +104,8 @@ class App extends React.Component {
           <ProfilePage
             firebase={firebase}
             isProfileOwner={true}
-            profileOwner={this.state.username}
-            currentUser={this.state.username}
+            profileOwnerID={this.state.userID}
+            currentUserID={this.state.userID}
           />
         break;
       default:
@@ -126,23 +125,23 @@ class App extends React.Component {
         />
         <div className="header">
           <Navbar
-            username={this.state.username}
+            userID={this.state.userID}
             openLoginModal={this.openLoginModal}
             openSignUpModal={this.openSignUpModal}
-            resetUser={this.resetUser}
+            resetUserID={this.resetUserID}
             mobileUI={this.state.mobileUI}
             setPage={this.setPage}
           />
           <LogInForm
             firebase={firebase}
-            setUser={this.setUser}
+            setUserID={this.setUserID}
             open={this.state.openLoginModal}
             close={this.closeLoginModal}
             mobileUI={this.state.mobileUI}
           />
           <SignUpForm
             firebase={firebase}
-            setUser={this.setUser}
+            setUserID={this.setUserID}
             open={this.state.openSignUpModal}
             close={this.closeSignUpModal}
             mobileUI={this.state.mobileUI}
@@ -150,11 +149,6 @@ class App extends React.Component {
         </div>
         <div className="content">
           {
-            // <ProfilePage
-            //   isProfileOwner={true}
-            //   profileOwner={this.state.user}
-            //   currentUser={this.state.user}
-            // />
             currentPage
           }
         </div>
