@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import PostCard from './PostCard';
 import ProfileUpdateForm from './ProfileUpdateForm';
+import AddPostForm from './AddPostForm';
+
 import '../stylesheets/ProfilePage.css';
 
 import treat from '../assets/treat.png'
@@ -16,11 +18,16 @@ export default class ProfilePage extends React.Component {
             usertype: '',
             profileOwner: {},
             currentUser: {},
+            posts: [],
             isProfileOwner: false,
-            openProfileUpdateForm: false
+            openProfileUpdateForm: false,
+            openAddNewPostForm: false,
         }
         this.openProfileUpdateForm = this.openProfileUpdateForm.bind(this);
         this.closeProfileUpdateForm = this.closeProfileUpdateForm.bind(this);
+        this.openAddNewPostForm = this.openAddNewPostForm.bind(this);
+        this.closeAddNewPostForm = this.closeAddNewPostForm.bind(this);
+        this.stylefuntion = this.stylefuntion.bind(this);
     }
 
     openProfileUpdateForm() {
@@ -33,9 +40,19 @@ export default class ProfilePage extends React.Component {
             openProfileUpdateForm: false
         })
     }
+    openAddNewPostForm() {
+        this.setState({
+            openAddNewPostForm: true
+        })
+    }
+    closeAddNewPostForm() {
+        this.setState({
+            openAddNewPostForm: false
+        })
+    }
     componentDidMount() {
-        var dbRef = this.props.firebase.firestore().collection("users");
-        dbRef.doc(this.props.profileOwnerID).onSnapshot(doc => {
+        var dbRef = this.props.firebase.firestore();
+        dbRef.collection("users").doc(this.props.profileOwnerID).onSnapshot(doc => {
             var data = doc.data()
             data['userid'] = doc.id;
             this.setState({
@@ -43,27 +60,32 @@ export default class ProfilePage extends React.Component {
             })
         });
     }
+
+    stylefuntion(){
+        if(this.props.profileOwner){
+            if(this.props.profileOwner.post.length === 0){
+                return true;
+            }
+            return false;
+        }
+        return true;
+    }
+    isEmpty(obj) {
+        var hasOwnProperty = Object.prototype.hasOwnProperty;
+        if (obj == null) return true;
+        for (var key in obj) {
+            if (hasOwnProperty.call(obj, key)) return false;
+        }
+        return true;
+    }
     render() {
-        var posts = [], total_treets = 0, total_boops = 0, total_pats = 0;
-        const addNewPost = (
-            <div className="add_new_post_card">
-                <div>
-                    <FontAwesomeIcon icon="plus" />
-                </div>
-            </div>
-        )
-        posts.push(addNewPost);
-
-        // if (this.state.profileOwner.posts) {
-        //     var temp_posts = this.props.profileOwner.posts;
-        //     for (var i = 0; i < temp_posts.length; i++) {
-        //         total_treets += temp_posts[i].treats;
-        //         total_boops += parseInt(temp_posts[i].boops);
-        //         total_pats += parseInt(temp_posts[i].pats);
-        //         posts.push(<PostCard post={temp_posts[i]} />);
-        //     }
-        // }
-
+        var total_treets = 0, total_boops = 0, total_pats = 0;
+        if (!this.isEmpty(this.state.profileOwner)) {
+            console.log(this.state.profileOwner);
+            var postids = this.state.profileOwner.posts;
+            var posts = postids.map(postid => <PostCard postid={postid} post={null}
+                firebase={this.props.firebase} />);
+        }
         return (
             <div className="profile_page_container">
                 {
@@ -79,7 +101,17 @@ export default class ProfilePage extends React.Component {
                         />
                         : null
                 }
-
+                {
+                    this.state.openAddNewPostForm ?
+                        <AddPostForm
+                            open={this.state.openAddNewPostForm}
+                            close={this.closeAddNewPostForm}
+                            userid={this.state.profileOwner.userid}
+                            username={this.state.profileOwner.username}
+                            firebase={this.props.firebase}
+                        /> :
+                        null
+                }
                 <div className="header">
                     <div className="profile_picture_wrapper">
                         <img className="profile_picture" src={this.state.profileOwner.profilePictureUrl} alt="" />
@@ -109,6 +141,13 @@ export default class ProfilePage extends React.Component {
                     </div>
                 </div>
                 <div className="profile_posts">
+                    <div className="add_new_post_card" 
+                        style={this.stylefunction ? {height:'246px'} : null}
+                        onClick={this.openAddNewPostForm}>
+                        <div>
+                            <FontAwesomeIcon icon="plus" />
+                        </div>
+                    </div>
                     {
                         posts
                     }
@@ -117,3 +156,4 @@ export default class ProfilePage extends React.Component {
         );
     }
 }
+

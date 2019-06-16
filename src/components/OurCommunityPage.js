@@ -18,23 +18,23 @@ export default class OurCommunityPage extends React.Component {
             breeds: json
         })
     }
-render() {
-    let breedCards = this.state.breeds.map(breed => <BreedCard breed={breed}/>)
+    render() {
+        let breedCards = this.state.breeds.map(breed => <BreedCard breed={breed} />)
 
-    return (
-        <div className="community_page_container" >
-            <Media
-          query="(max-width: 650px)"
-          onChange={
-            matches =>
-              matches
-                ? this.setState({ mobileUI: true })
-                : this.setState({ mobileUI: false })
-          }
-        />
-            {breedCards}
-        </div>
-        
-    );
-}
+        return (
+            <div className="community_page_container" >
+                <Media
+                    query="(max-width: 650px)"
+                    onChange={
+                        matches =>
+                            matches
+                                ? this.setState({ mobileUI: true })
+                                : this.setState({ mobileUI: false })
+                    }
+                />
+                {breedCards}
+            </div>
+
+        );
+    }
 }

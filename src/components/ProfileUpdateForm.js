@@ -40,7 +40,8 @@ export default class ProfileUpdateForm extends React.Component {
     }
 
     handleSubmit() {
-        var docRef = this.props.firebase.firestore().collection('users').doc(this.props.userid);
+        var docRef = this.props.firebase.firestore()
+            .collection('users').doc(this.props.userid);
         if (this.state.imageFile.length > 0) {
             var storageRef = this.props.firebase.storage().ref().child('profilePictures');
             var imageRef = storageRef.child(this.state.userid + '.jpg')
@@ -66,7 +67,7 @@ export default class ProfileUpdateForm extends React.Component {
         }
         this.props.close();
     }
-    
+
     componentDidMount() {
         this.setState({
             username: this.props.username,
