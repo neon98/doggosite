@@ -12,7 +12,7 @@ import '../stylesheets/Navbar.css';
 export default class Navbar extends React.Component {
     render() {
         return (
-            <div className={this.props.mobileUI ? "navbar_wrapper reduced_navbar_wrapper" : "navbar_wrapper"}>
+            <div className="navbar_wrapper">
                 <ul className="navbar">
                     <li className="navbar_brand_icon_wrapper">
                         <img src={paw} alt="paw" className="navbar_brand_icon" />

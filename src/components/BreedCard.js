@@ -128,7 +128,6 @@ class BreedCardImage extends React.Component {
         const response = await fetch(`https://api.TheDogAPI.com/v1/images/search?breed_id=` + id, options);
         const json = await response.json();
         if (json.length) {
-            console.log(json[0].url);
             return json[0].url;
         }
         return null;

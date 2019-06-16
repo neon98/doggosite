@@ -1,6 +1,7 @@
 import React from 'react';
-import '../stylesheets/SignUpForm.css'
+import '../stylesheets/FormModals.css'
 import Popup from 'reactjs-popup';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default class SignUpForm extends React.Component {
@@ -56,18 +57,16 @@ export default class SignUpForm extends React.Component {
             this.state.email,
             this.state.password
         ).then(data => {
-            this.props.firebase.firestore().collection('users').doc(data.user.uid).set({
+            var userid = data.user.uid;
+            this.props.firebase.firestore().collection('users').doc(userid).set({
                 username: this.state.username,
                 bio: '',
                 breedname: '',
-                posts: []
+                posts: [],
+                email : this.state.email
             }).then(() => {
-                this.props.setUser({
-                    username: this.state.username,
-                    bio: '',
-                    breedname: '',
-                    posts: []
-                });
+                this.props.setUserID(userid);
+                localStorage.setItem('doggositeuser', userid);
                 this.setState(this.initialState);
                 document.getElementById('signUpForm').reset();
                 this.props.close();
@@ -83,9 +82,9 @@ export default class SignUpForm extends React.Component {
         var contentStyle = {
             width: '300px',
             marginTop: '100px',
+            padding: '0',
             borderRadius: '4px',
-            boxShadow: '0 8px 16px 0 rgba(0, 0, 0, 0.2)',
-            border: 'none'
+            boxShadow: '0 8px 16px 0 rgba(0, 0, 0, 0.2)'
         }
         return (
             <Popup
@@ -94,7 +93,8 @@ export default class SignUpForm extends React.Component {
                 onClose={this.props.close}
                 modal
             >
-                <div className="signUpModal">
+                <div className="modal">
+                    <button className="close" onClick={this.props.close}> &times; </button>
                     <div className="header"> Sign Up</div>
                     <div className="content">
                         <form id="signUpForm">

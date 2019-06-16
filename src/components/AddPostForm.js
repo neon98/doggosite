@@ -2,7 +2,7 @@ import React from 'react';
 import Popup from 'reactjs-popup';
 import Dropzone from 'react-dropzone';
 
-import '../stylesheets/AddPostForm.css'
+import '../stylesheets/FormModals.css'
 
 import uploadphoto from '../assets/uploadphoto2.png'
 
@@ -50,6 +50,7 @@ export default class AddPostModal extends React.Component {
                     dbRef.collection('users').doc(this.props.userid).update({
                         posts: this.props.firebase.firestore.FieldValue.arrayUnion(postid)
                     })
+                    this.props.fetchData()
                     this.props.close()
                 }).catch(error => {
                     console.log(error);
@@ -59,7 +60,7 @@ export default class AddPostModal extends React.Component {
             });
         })
             .catch(function (error) {
-                console.error("Error adding document: ", error);
+                console.log(error);
             });
         
     }
@@ -78,7 +79,7 @@ export default class AddPostModal extends React.Component {
                 onClose={this.props.close}
                 modal
             >
-                <div className="AddPostModal container">
+                <div className="modal">
                     <button className="close" onClick={this.props.close}> &times; </button>
                     <div className="header">Add Post</div>
                     <div className="content">

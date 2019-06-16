@@ -13,19 +13,20 @@ import LilOnesPage from './components/LilOnesPage';
 import TweetsPage from './components/TweetsPage';
 
 import fontawesome from '@fortawesome/fontawesome'
-import { faCheck, faExclamationCircle, faPencilAlt, faPlus } from '@fortawesome/fontawesome-free-solid'
+import { faCheck, faExclamationCircle, faPencilAlt } from '@fortawesome/fontawesome-free-solid'
 
 import './App.css';
 
-fontawesome.library.add(faCheck, faExclamationCircle, faPencilAlt, faPlus);
+fontawesome.library.add(faCheck, faExclamationCircle, faPencilAlt);
 firebase.initializeApp(config);
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      usermode: 'visitor',
+      usertype: 'unregistered',
       userID: '',
+      profileOwnerID: '',
       currentPage: 'Home',
       openLoginModal: false,
       openSignUpModal: false,
@@ -34,29 +35,51 @@ class App extends React.Component {
 
     this.setUserID = this.setUserID.bind(this);
     this.resetUserID = this.resetUserID.bind(this);
+    this.setProfileOwnerID = this.setProfileOwnerID.bind(this)
+    this.resetProfileOwnerID = this.resetProfileOwnerID.bind(this)
+
     this.setPage = this.setPage.bind(this);
 
     this.openLoginModal = this.openLoginModal.bind(this);
     this.closeLoginModal = this.closeLoginModal.bind(this);
     this.openSignUpModal = this.openSignUpModal.bind(this);
     this.closeSignUpModal = this.closeSignUpModal.bind(this);
+    this.openProfilePage = this.openProfilePage.bind(this);
   }
   setUserID(userID) {
     this.setState({
       usermode: 'registered',
-      userID: userID
+      userID: userID,
+      profileOwnerID: userID,
     });
   }
   resetUserID() {
+    localStorage.removeItem('doggositeuser');
     this.setState({
-      usermode: 'visitor',
-      userID: ''
+      usermode: 'unregistered',
+      userID: '',
+      profileOwnerID: ''
+    });
+  }
+  setProfileOwnerID(profileOwnerID) {
+    console.log(profileOwnerID);
+
+    this.setState({
+      profileOwnerID: profileOwnerID
+    });
+  }
+  resetProfileOwnerID() {
+    this.setState({
+      profileOwnerID: this.state.userID
     });
   }
   setPage(page) {
     this.setState({
       currentPage: page
     })
+    if (page !== 'Profile') {
+      this.resetProfileOwnerID()
+    }
   }
   openLoginModal() {
     this.setState({
@@ -78,17 +101,31 @@ class App extends React.Component {
       openSignUpModal: false
     })
   }
+  openProfilePage(profileOwnerID) {
+    console.log(profileOwnerID);
+    this.setProfileOwnerID(profileOwnerID);
+    this.setPage("Profile");
+
+  }
   componentDidMount() {
     var userID = localStorage.getItem('doggositeuser');
     if (userID) {
       this.setUserID(userID)
     }
   }
+
+
   render() {
     var currentPage;
     switch (this.state.currentPage) {
       case "Home":
-        currentPage = <HomePage />
+
+        currentPage =
+          <HomePage
+            firebase={firebase}
+            setPage={this.setPage}
+            openProfilePage={this.openProfilePage}
+          />
         break;
       case "Our Community":
         currentPage = <OurCommunityPage />
@@ -104,12 +141,17 @@ class App extends React.Component {
           <ProfilePage
             firebase={firebase}
             isProfileOwner={true}
-            profileOwnerID={this.state.userID}
+            profileOwnerID={this.state.profileOwnerID}
             currentUserID={this.state.userID}
           />
         break;
       default:
-        currentPage = <HomePage />
+        currentPage =
+          <HomePage
+            firebase={firebase}
+            setPage={this.setPage}
+            openProfilePage={this.openProfilePage}
+          />
         break;
     }
     return (
@@ -131,21 +173,27 @@ class App extends React.Component {
             resetUserID={this.resetUserID}
             mobileUI={this.state.mobileUI}
             setPage={this.setPage}
+            resetUser={this.resetUserID}
           />
-          <LogInForm
-            firebase={firebase}
-            setUserID={this.setUserID}
-            open={this.state.openLoginModal}
-            close={this.closeLoginModal}
-            mobileUI={this.state.mobileUI}
-          />
-          <SignUpForm
-            firebase={firebase}
-            setUserID={this.setUserID}
-            open={this.state.openSignUpModal}
-            close={this.closeSignUpModal}
-            mobileUI={this.state.mobileUI}
-          />
+          {
+            this.state.openLoginModal ?
+              <LogInForm
+                firebase={firebase}
+                setUserID={this.setUserID}
+                open={this.state.openLoginModal}
+                close={this.closeLoginModal}
+              /> : null
+          }
+          {
+            this.state.openSignUpModal ?
+              <SignUpForm
+                firebase={firebase}
+                setUserID={this.setUserID}
+                open={this.state.openSignUpModal}
+                close={this.closeSignUpModal}
+              /> : null
+          }
+
         </div>
         <div className="content">
           {

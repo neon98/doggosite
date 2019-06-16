@@ -1,5 +1,5 @@
 import React from 'react';
-import '../stylesheets/LogInForm.css';
+import '../stylesheets/FormModals.css';
 import Popup from 'reactjs-popup';
 
 export default class LogInForm extends React.Component {
@@ -30,6 +30,7 @@ export default class LogInForm extends React.Component {
     }
 
     signIn() {
+        console.log(this.state);
         this.props.firebase.auth().signInWithEmailAndPassword(
             this.state.email,
             this.state.password
@@ -45,22 +46,23 @@ export default class LogInForm extends React.Component {
     }
 
     render() {
-        
+
         var contentStyle = {
-            width: '300px', 
+            width: '300px',
             marginTop: '100px',
+            padding: '0',
             borderRadius: '4px',
-            boxShadow: '0 8px 16px 0 rgba(0, 0, 0, 0.2)',
-            border:'none'
+            boxShadow: '0 8px 16px 0 rgba(0, 0, 0, 0.2)'
         }
         return (
             <Popup
-                contentStyle={ contentStyle}
+                contentStyle={contentStyle}
                 open={this.props.open}
                 onClose={this.props.close}
                 modal
             >
-                <div className="loginModal container">
+                <div className="modal">
+                    <button className="close" onClick={this.props.close}> &times; </button>
                     <div className="header">Login </div>
                     <div className="content">
                         <form id="loginForm">
@@ -75,7 +77,7 @@ export default class LogInForm extends React.Component {
                         </form>
                     </div>
                     <div className="actions">
-                        <button 
+                        <button
                             className="button"
                             onClick={this.handleSubmit}
                         >

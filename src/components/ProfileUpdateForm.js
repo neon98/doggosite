@@ -2,7 +2,7 @@ import React from 'react';
 import Popup from 'reactjs-popup';
 import Dropzone from 'react-dropzone';
 
-import '../stylesheets/ProfileUpdateForm.css';
+import '../stylesheets/FormModals.css';
 
 import uploadphoto from '../assets/uploadphoto.png'
 
@@ -51,6 +51,9 @@ export default class ProfileUpdateForm extends React.Component {
                         bio: this.state.bio,
                         breedname: this.state.breedname,
                         profilePictureUrl: url
+                    }).then(()=>{
+                        this.props.fetchData()
+                        this.props.close()
                     })
                 }).catch(error => {
                     console.log(error);
@@ -63,6 +66,9 @@ export default class ProfileUpdateForm extends React.Component {
             docRef.update({
                 bio: this.state.bio,
                 breedname: this.state.breedname,
+            }).then(()=>{
+                this.props.fetchData()
+                this.props.close()
             })
         }
         this.props.close();
@@ -92,7 +98,7 @@ export default class ProfileUpdateForm extends React.Component {
                 onClose={this.props.close}
                 modal
             >
-                <div className="UpdateProfileModal container">
+                <div className="modal">
                     <button className="close" onClick={this.props.close}> &times; </button>
                     <div className="header">Update Profile</div>
                     <div className="content">

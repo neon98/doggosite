@@ -14,12 +14,13 @@ export default class OurCommunityPage extends React.Component {
     async componentDidMount() {
         const response = await fetch(`https://api.thedogapi.com/v1/breeds`);
         const json = await response.json();
+        console.log(json);
         this.setState({
             breeds: json
         })
     }
     render() {
-        let breedCards = this.state.breeds.map(breed => <BreedCard breed={breed} />)
+        let breedCards = this.state.breeds.map(breed => <BreedCard key={breed.id} breed={breed} />)
 
         return (
             <div className="community_page_container" >
