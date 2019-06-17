@@ -24,7 +24,6 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      usertype: 'unregistered',
       userID: '',
       profileOwnerID: '',
       currentPage: 'Home',
@@ -33,8 +32,8 @@ class App extends React.Component {
       mobileUI: false
     }
 
-    this.setUserID = this.setUserID.bind(this);
-    this.resetUserID = this.resetUserID.bind(this);
+    this.setUser = this.setUser.bind(this);
+    this.resetUser = this.resetUser.bind(this);
     this.setProfileOwnerID = this.setProfileOwnerID.bind(this)
     this.resetProfileOwnerID = this.resetProfileOwnerID.bind(this)
 
@@ -46,24 +45,20 @@ class App extends React.Component {
     this.closeSignUpModal = this.closeSignUpModal.bind(this);
     this.openProfilePage = this.openProfilePage.bind(this);
   }
-  setUserID(userID) {
+  setUser(userID) {
     this.setState({
-      usermode: 'registered',
       userID: userID,
       profileOwnerID: userID,
     });
   }
-  resetUserID() {
+  resetUser() {
     localStorage.removeItem('doggositeuser');
     this.setState({
-      usermode: 'unregistered',
       userID: '',
       profileOwnerID: ''
     });
   }
   setProfileOwnerID(profileOwnerID) {
-    console.log(profileOwnerID);
-
     this.setState({
       profileOwnerID: profileOwnerID
     });
@@ -102,29 +97,26 @@ class App extends React.Component {
     })
   }
   openProfilePage(profileOwnerID) {
-    console.log(profileOwnerID);
     this.setProfileOwnerID(profileOwnerID);
     this.setPage("Profile");
-
   }
   componentDidMount() {
     var userID = localStorage.getItem('doggositeuser');
     if (userID) {
-      this.setUserID(userID)
+      this.setUser(userID)
     }
   }
-
-
+  componentDid
   render() {
     var currentPage;
     switch (this.state.currentPage) {
       case "Home":
-
         currentPage =
           <HomePage
             firebase={firebase}
             setPage={this.setPage}
             openProfilePage={this.openProfilePage}
+            userid={this.state.userID}
           />
         break;
       case "Our Community":
@@ -151,6 +143,7 @@ class App extends React.Component {
             firebase={firebase}
             setPage={this.setPage}
             openProfilePage={this.openProfilePage}
+            userid={this.state.userID}
           />
         break;
     }
@@ -170,16 +163,15 @@ class App extends React.Component {
             userID={this.state.userID}
             openLoginModal={this.openLoginModal}
             openSignUpModal={this.openSignUpModal}
-            resetUserID={this.resetUserID}
             mobileUI={this.state.mobileUI}
             setPage={this.setPage}
-            resetUser={this.resetUserID}
+            resetUser={this.resetUser}
           />
           {
             this.state.openLoginModal ?
               <LogInForm
                 firebase={firebase}
-                setUserID={this.setUserID}
+                setUser={this.setUser}
                 open={this.state.openLoginModal}
                 close={this.closeLoginModal}
               /> : null
@@ -188,7 +180,7 @@ class App extends React.Component {
             this.state.openSignUpModal ?
               <SignUpForm
                 firebase={firebase}
-                setUserID={this.setUserID}
+                setUser={this.setUser}
                 open={this.state.openSignUpModal}
                 close={this.closeSignUpModal}
               /> : null
