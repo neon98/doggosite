@@ -16,7 +16,6 @@ export default class PostCard extends React.Component {
         }
         this.handleBoop = this.handleBoop.bind(this);
         this.handlePTB = this.handlePTB.bind(this)
-        // this.updateBoopInDB = this.updateBoopInDB.bind(this);
         this.updatePost = this.updatePost.bind(this);
     }
     componentDidMount() {
@@ -40,9 +39,9 @@ export default class PostCard extends React.Component {
         }
     }
     updatePost(post, userid) {
-        var pat = post.pats_userids.includes(userid)
-        var treat = post.treats_userids.includes(userid);
-        var boop = post.boops_userids.includes(userid);
+        var pat = post.pats_userids ? post.pats_userids.includes(userid) : false;
+        var treat = post.treats_userids ? post.treats_userids.includes(userid) : false;
+        var boop = post.boops_userids ? post.boops_userids.includes(userid) : false;
         this.setState({
             post: post,
             userid: userid,
@@ -87,14 +86,20 @@ export default class PostCard extends React.Component {
                     : this.props.firebase.firestore.FieldValue.arrayRemove(this.props.userid)
             )
         }).then(() => {
-            var temp_post = this.state.post;
-            temp_post[str] = add ? temp_post[str] + 1 : temp_post[str] - 1;
-            
-            str = str.substring(0, str.length-1);
-            this.setState({
-                [str]: add,
-                post: temp_post
+            dbRef.collection('users').doc(this.state.post.userid).update({
+                ['total' + str]: this.props.firebase.firestore.FieldValue.increment(add ? 1 : -1)
+            }).then(() => {
+                var temp_post = this.state.post;
+                temp_post[str] = add ? temp_post[str] + 1 : temp_post[str] - 1;
+                str = str.substring(0, str.length - 1);
+                this.setState({
+                    [str]: add,
+                    post: temp_post
+                });
+            }).catch(error => {
+                console.log(error);
             });
+
         }).catch(error => {
             console.log(error);
         });

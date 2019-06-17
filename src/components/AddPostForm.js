@@ -33,36 +33,46 @@ export default class AddPostModal extends React.Component {
     }
     handleSubmit() {
         var dbRef = this.props.firebase.firestore();
+        //add new post doc in posts collection in firestore
         dbRef.collection('posts').add({}).then(docRef => {
             var postid = docRef.id;
             var storageRef = this.props.firebase.storage().ref().child('posts/' + postid + '.jpg');
+            //store image in firebase storage
             storageRef.put(this.state.imageFile[0]).then(snapshot => {
                 snapshot.ref.getDownloadURL().then(url => {
-                    dbRef.collection('posts').doc(postid).update({
+                    // add data in post doc
+                    dbRef.collection('posts').doc(postid).set({
                         caption: this.state.caption,
                         username: this.props.username,
                         userid: this.props.userid,
                         postImageUrl: url,
                         pats: 0,
                         treats: 0,
-                        boops: 0
+                        boops: 0,
+                        pats_userids: [],
+                        treats_userids: [],
+                        boops_userids: []
                     })
+                    // add post id in user doc
                     dbRef.collection('users').doc(this.props.userid).update({
                         posts: this.props.firebase.firestore.FieldValue.arrayUnion(postid)
                     })
-                    this.props.fetchData()
+                    // this.props.fetchProfile()
                     this.props.close()
+
+                    //add new post doc in pats, boops, treats collection
+                    // dbRef.collection('boops').doc(postid).set({});
                 }).catch(error => {
                     console.log(error);
                 });
             }).catch(error => {
+                // delete post doc if image isn't stored
                 dbRef.collection('posts').doc(postid).delete();
             });
-        })
-            .catch(function (error) {
-                console.log(error);
-            });
-        
+        }).catch(function (error) {
+            console.log(error);
+        });
+
     }
     render() {
         var contentStyle = {

@@ -15,13 +15,10 @@ export default class ProfilePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            usertype: 'unregistered visitor', // three types of users : registered visitor, unregistered visitor, owner
             profileOwner: {},
-            currentUser: {},
-            posts: [],
-            isProfileOwner: false,
+            currentUserID: '',
             openProfileUpdateForm: false,
-            openAddNewPostForm: false,
+            openAddNewPostForm: false
         }
         this.postCardStyles = {
             post_container: {
@@ -49,13 +46,16 @@ export default class ProfilePage extends React.Component {
                 display: 'flex',
                 justifyContent: 'space-between',
                 margin: '0',
-                padding: '10px 10px 10px 0px',
+                padding: '5px 10px 5px 0px',
                 background: 'rgb(238, 237, 237)'
             },
             pat_treat_boop_div: {
                 display: 'flex',
                 flexWrap: 'wrap',
-                margin: '0px 10px'
+                margin: '0px 10px',
+                padding: '3px 0 3px 7px',
+                cursor: 'pointer',
+                borderRadius: '4px'
             },
             pat_treat_boop_icon: {
                 height: '20px',
@@ -71,13 +71,11 @@ export default class ProfilePage extends React.Component {
         this.openAddNewPostForm = this.openAddNewPostForm.bind(this);
         this.closeAddNewPostForm = this.closeAddNewPostForm.bind(this);
         this.setUserType = this.setUserType.bind(this);
-        this.fetchData = this.fetchData.bind(this);
-
     }
-    fetchData(){
-        if (this.props.profileOwnerID) {
+    fetchProfile(userid) {
+        if (userid) {
             var dbRef = this.props.firebase.firestore();
-            dbRef.collection("users").doc(this.props.profileOwnerID).get().then(doc => {
+            this.unsubscribe = this.unsubscribe = dbRef.collection("users").doc(userid).onSnapshot(doc => {
                 var data = doc.data()
                 data['userid'] = doc.id;
                 this.setState({
@@ -85,19 +83,32 @@ export default class ProfilePage extends React.Component {
                 })
             });
         }
+
     }
     componentDidMount() {
-        if (this.props.currentUserID === '') {
-            this.setUserType('unregistered visitor');
-        } else if (this.props.currentUserID !== this.props.profileOwnerID) {
-            this.setUserType('registered visitor');
-        } else {
-            this.setUserType('owner');
-        }
-        this.fetchData();
-
+        var dbRef = this.props.firebase.firestore();
+        this.unsubscribe = dbRef.collection("users").doc(this.props.profileOwnerID).onSnapshot(doc => {
+            var data = doc.data()
+            data['userid'] = doc.id;
+            this.setState({
+                profileOwner: data,
+                currentUserID: this.props.currentUserID
+            })
+        });
     }
-
+    componentDidUpdate() {
+        if (this.state.profileOwner.userid !== this.props.profileOwnerID) {
+            this.fetchProfile(this.props.profileOwnerID);
+        }
+        if (this.state.currentUserID !== this.props.currentUserID) {
+            this.setState({
+                currentUserID: this.props.currentUserID
+            })
+        }
+    }
+    componentWillUnmount(){
+        this.unsubscribe();
+    }
     setUserType(usertype) {
         this.setState({
             usertype: usertype
@@ -123,8 +134,6 @@ export default class ProfilePage extends React.Component {
             openAddNewPostForm: false
         })
     }
-    
-
     isEmpty(obj) {
         var hasOwnProperty = Object.prototype.hasOwnProperty;
         if (obj == null) return true;
@@ -135,19 +144,20 @@ export default class ProfilePage extends React.Component {
     }
     render() {
 
-        var total_treets = 0, total_boops = 0, total_pats = 0;
         if (!this.isEmpty(this.state.profileOwner)) {
             var postids = this.state.profileOwner.posts;
             var posts = postids.map(postid =>
                 <PostCard
-                    key = {postid}
+                    key={postid}
                     postid={postid}
                     post={null}
                     styles={this.postCardStyles}
                     firebase={this.props.firebase}
                     fromPage={'profile'}
+                    userid={this.state.currentUserID}
                 />);
         }
+
         return (
             <div className="profile_page_container">
                 {
@@ -160,7 +170,6 @@ export default class ProfilePage extends React.Component {
                             breedname={this.state.profileOwner.breedname}
                             bio={this.state.profileOwner.bio}
                             firebase={this.props.firebase}
-                            fetchData={this.fetchData}
                         />
                         : null
                 }
@@ -172,7 +181,6 @@ export default class ProfilePage extends React.Component {
                             userid={this.state.profileOwner.userid}
                             username={this.state.profileOwner.username}
                             firebase={this.props.firebase}
-                            fetchData={this.fetchData}
                         /> :
                         null
                 }
@@ -189,7 +197,7 @@ export default class ProfilePage extends React.Component {
                                     : null
                             }
                             {
-                                this.state.usertype === 'owner' ?
+                                this.state.currentUserID === this.state.profileOwner.userid ?
                                     <p className="edit_icon" onClick={this.openProfileUpdateForm}><FontAwesomeIcon icon="pencil-alt" /></p>
                                     : null
                             }
@@ -198,22 +206,22 @@ export default class ProfilePage extends React.Component {
                         <div className="pat_treat_boop">
                             <div className="">
                                 <img className="icon" src={pat} alt="" />
-                                <p className="text">{total_pats}</p>
+                                <p className="text">{this.state.profileOwner.totalpats}</p>
                             </div>
                             <div className="">
                                 <img className="icon" src={treat} alt="" />
-                                <p className="text">{total_treets}</p>
+                                <p className="text">{this.state.profileOwner.totaltreats}</p>
                             </div>
                             <div className="">
                                 <img className="icon" src={boop} alt="" />
-                                <p className="text">{total_boops}</p>
+                                <p className="text">{this.state.profileOwner.totalboops}</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="profile_posts">
                     {
-                        this.state.usertype === 'owner' ?
+                        this.state.currentUserID === this.state.profileOwner.userid ?
                             <div className="add_new_post_card"
                                 style={this.stylefunction ? { height: '246px' } : null}
                                 onClick={this.openAddNewPostForm}>

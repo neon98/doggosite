@@ -35,7 +35,7 @@ export default class LogInForm extends React.Component {
             this.state.email,
             this.state.password
         ).then(data => {
-            this.props.setUserID(data.user.uid);
+            this.props.setUser(data.user.uid);
             localStorage.setItem('doggositeuser', data.user.uid);
             document.getElementById('loginForm').reset();
             this.setState(this.initialState);

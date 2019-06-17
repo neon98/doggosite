@@ -52,7 +52,7 @@ export default class ProfileUpdateForm extends React.Component {
                         breedname: this.state.breedname,
                         profilePictureUrl: url
                     }).then(()=>{
-                        this.props.fetchData()
+                        // this.props.fetchProfile()
                         this.props.close()
                     })
                 }).catch(error => {
@@ -67,7 +67,7 @@ export default class ProfileUpdateForm extends React.Component {
                 bio: this.state.bio,
                 breedname: this.state.breedname,
             }).then(()=>{
-                this.props.fetchData()
+                // this.props.fetchProfile()
                 this.props.close()
             })
         }
@@ -76,7 +76,7 @@ export default class ProfileUpdateForm extends React.Component {
 
     componentDidMount() {
         this.setState({
-            username: this.props.username,
+            userid: this.props.userid,
             breedname: this.props.breedname,
             bio: this.props.bio,
             characterCount: this.props.bio ? 100 - this.props.bio.length : 100

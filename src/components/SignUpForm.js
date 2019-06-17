@@ -65,7 +65,7 @@ export default class SignUpForm extends React.Component {
                 posts: [],
                 email : this.state.email
             }).then(() => {
-                this.props.setUserID(userid);
+                this.props.setUser(userid);
                 localStorage.setItem('doggositeuser', userid);
                 this.setState(this.initialState);
                 document.getElementById('signUpForm').reset();
