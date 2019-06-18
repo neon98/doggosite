@@ -1,6 +1,5 @@
 import React from 'react';
 import '../stylesheets/TweetsPage.css';
-import { twitterConfig } from '../config.js'
 // import { Twitter } from 'twitter-node-client';
 import {TwitterTimelineEmbed } from 'react-twitter-embed';
 
