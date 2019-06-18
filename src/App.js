@@ -1,7 +1,7 @@
 import React from 'react';
 import Media from 'react-media';
 import * as firebase from 'firebase';
-import config from './config';
+import {firebaseConfig} from './config';
 
 import Navbar from './components/Navbar';
 import LogInForm from './components/LogInForm';
@@ -18,7 +18,7 @@ import { faCheck, faExclamationCircle, faPencilAlt } from '@fortawesome/fontawes
 import './App.css';
 
 fontawesome.library.add(faCheck, faExclamationCircle, faPencilAlt);
-firebase.initializeApp(config);
+firebase.initializeApp(firebaseConfig);
 
 class App extends React.Component {
   constructor() {
@@ -26,7 +26,7 @@ class App extends React.Component {
     this.state = {
       userID: '',
       profileOwnerID: '',
-      currentPage: 'Home',
+      currentPage: 'Lil Ones',
       openLoginModal: false,
       openSignUpModal: false,
       mobileUI: false
