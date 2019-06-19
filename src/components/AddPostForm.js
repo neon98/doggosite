@@ -95,7 +95,7 @@ export default class AddPostModal extends React.Component {
                     <div className="content">
 
                         <form id="addPostForm">
-                            <div className="update_image_div">
+                            <div className="update_image_div" style={{marginTop: '15px'}}>
                                 <Dropzone
                                     style={{ position: 'unset', cursor: 'pointer' }}
                                     onDrop={file => { this.handleOnDrop(file) }}

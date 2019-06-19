@@ -7,6 +7,7 @@ import '../stylesheets/OurCommunityPage.css'
 import Media from 'react-media';
 
 export default class OurCommunityPage extends React.Component {
+    mounted = false;
     constructor(props) {
         super(props);
         this.state = {
