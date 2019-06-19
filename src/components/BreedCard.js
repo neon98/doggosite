@@ -12,13 +12,6 @@ var options = {
 }
 
 export default class BreedCard extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-        }
-    }
-
     render() {
         var breed_name = this.props.breed.name;
         var bred_for = this.props.breed.bred_for;
@@ -115,22 +108,22 @@ class BreedCardImage extends React.Component {
             imageUrl: ''
         }
     }
-    async componentDidMount() {
-        const response = await fetch(`https://api.TheDogAPI.com/v1/images/search?breed_id=` + this.props.id, options);
-        const json = await response.json();
-        if (json.length) {
-            this.setState({
-                imageUrl: json[0].url
+    componentDidMount() {
+        this.mounted = true;
+        if (this.mounted) {
+            fetch(`https://api.TheDogAPI.com/v1/images/search?breed_id=` + this.props.id, options)
+            .then(response => response.json())
+            .then(result => {
+                if(result[0]){
+                    this.setState({
+                        imageUrl: result[0].url
+                    })
+                }
             })
         }
     }
-    async getImageUrl(id) {
-        const response = await fetch(`https://api.TheDogAPI.com/v1/images/search?breed_id=` + id, options);
-        const json = await response.json();
-        if (json.length) {
-            return json[0].url;
-        }
-        return null;
+    componentWillUnmount() {
+        this.mounted = false;
     }
     render() {
         return (

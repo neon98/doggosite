@@ -20,11 +20,30 @@
 }
 
 .rightDiv {
-    background: white;
+    /* background: white; */
     width: 35%;
     overflow-y: hidden;
-    padding: 10px;
-    box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
+    /* padding: 10px; */
+    /* box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.2); */
+    /* border-radius: 4px; */
     height: 90%;
+}
+
+.fact {
+    background: white;
+    padding: 20px;
+    /* box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.2); */
+    border-radius: 4px;
+    font-size: 16px;
+    color: black;
+    border: 1px solid rgb(234, 234, 234);
+}
+
+.fact>p {
+    margin: 0;
+    padding: 0;
+}
+
+.defaultCursor {
+    cursor: default !important;
 }

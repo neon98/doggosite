@@ -11,13 +11,22 @@ export default class OurCommunityPage extends React.Component {
             breeds: [],
         }
     }
-    async componentDidMount() {
-        const response = await fetch(`https://api.thedogapi.com/v1/breeds`);
-        const json = await response.json();
-        console.log(json);
-        this.setState({
-            breeds: json
-        })
+    componentDidMount() {
+        this.mounted = true;
+
+        fetch(`https://api.thedogapi.com/v1/breeds`)
+            .then(response => response.json())
+            .then(result => {
+                if (this.mounted) {
+                    this.setState({
+                        breeds: result
+                    })
+                }
+            })
+
+    }
+    componentWillUnmount() {
+        this.mounted = false;
     }
     render() {
         let breedCards = this.state.breeds.map(breed => <BreedCard key={breed.id} breed={breed} />)

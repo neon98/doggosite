@@ -9,8 +9,10 @@ export default class LilOnesPage extends React.Component {
         }
     }
     componentDidMount() {
+        // var srs = ['puppies', 'PuppySmiles', 'rarepuppers']
         var sr = 'puppies';
-        fetch('http://api.reddit.com/r/'+sr+'/new.json?limit=10')
+        var limit = 100;
+        fetch('http://api.reddit.com/r/'+sr+'/new.json?limit='+limit)
             .then(response => {
                 return response.json()
             })
@@ -21,9 +23,10 @@ export default class LilOnesPage extends React.Component {
 
         if (this.state.data.length > 0) {
             images = this.state.data.map(data =>{
-                console.log(data.data);
                 return(
-                    <img src={data.data.url} alt="" style={{ height: '220px', width: '220px'}} />
+                    data.data.url.includes('.jpg' ||  'png' || 'jpeg') ?
+                    <img key={data.data.key} src={data.data.url} alt="" style={{ height: '220px', width: '220px', borderRadius:'5px'}} />
+                    : null
                 )
             } )
         }

@@ -1,11 +1,12 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import paw from '../assets/paw.png'
 import home from '../assets/home.png'
 import tweet from '../assets/tweet.png'
 import puppy from '../assets/puppy.png'
 import breeds from '../assets/community.png';
-
+import user from "../assets/user.png";
 import '../stylesheets/Navbar.css';
 
 
@@ -62,7 +63,11 @@ export default class Navbar extends React.Component {
                                             className="navbar_item_button" 
                                             style={{ width: 'auto' }}
                                             onClick={() => { this.props.setPage("Profile") }}
-                                        > {this.props.userID[0]} </button>
+                                        > 
+                                        <img src={user} className="navbar_item_icon" style={{margin:'0',marginTop: '5px'}}alt=""/>
+                                        {/* <FontAwesomeIcon icon="user" />  */}
+                                        {/* <i class="far fa-user"></i> */}
+                                        </button>
                                     </div>
                                 </li>
                                 <li>
@@ -80,7 +85,7 @@ export default class Navbar extends React.Component {
                                 </li>
                                 <li>
                                     <div className="navbar_item">
-                                        <button className="navbar_item_button" onClick={() => {this.props.openSignUpModal()}}> Sign Up </button>
+                                        <button className="navbar_item_button" onClick={() => {this.props.openSignUpModal()}}> Signup </button>
                                     </div>
                                 </li>
                             </div>

@@ -25,7 +25,8 @@ export default class ProfilePage extends React.Component {
                 borderRadius: '2px',
                 marginBottom: '20px',
                 marginRight: '20px',
-                boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.2)',
+                border: '1px solid rgb(234, 234, 234)',
+                // boxShadow: '1px 1px 4px 0 rgba(0, 0, 0, 0.2)',
                 wordWrap: 'break-word',
                 width: '230px',
                 background: 'white'

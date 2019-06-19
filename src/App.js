@@ -13,11 +13,11 @@ import LilOnesPage from './components/LilOnesPage';
 import TweetsPage from './components/TweetsPage';
 
 import fontawesome from '@fortawesome/fontawesome'
-import { faCheck, faExclamationCircle, faPencilAlt } from '@fortawesome/fontawesome-free-solid'
+import { faCheck, faExclamationCircle, faPencilAlt, faUser } from '@fortawesome/fontawesome-free-solid'
 
 import './App.css';
 
-fontawesome.library.add(faCheck, faExclamationCircle, faPencilAlt);
+fontawesome.library.add(faCheck, faExclamationCircle, faPencilAlt, faUser);
 firebase.initializeApp(firebaseConfig);
 
 class App extends React.Component {
@@ -26,7 +26,7 @@ class App extends React.Component {
     this.state = {
       userID: '',
       profileOwnerID: '',
-      currentPage: 'Lil Ones',
+      currentPage: 'Home',
       openLoginModal: false,
       openSignUpModal: false,
       mobileUI: false
@@ -106,7 +106,6 @@ class App extends React.Component {
       this.setUser(userID)
     }
   }
-  componentDid
   render() {
     var currentPage;
     switch (this.state.currentPage) {
@@ -150,7 +149,7 @@ class App extends React.Component {
     return (
       <div>
         <Media
-          query="(max-width: 650px)"
+          query="(max-width: 900px)"
           onChange={
             matches =>
               matches

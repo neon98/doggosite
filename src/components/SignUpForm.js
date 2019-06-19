@@ -99,7 +99,7 @@ export default class SignUpForm extends React.Component {
                     <div className="content">
                         <form id="signUpForm">
                             <div className="input_field">
-                                <label htmlFor="username">name</label>
+                                <label htmlFor="username">Username</label>
                                 <input type="text" id="username" onChange={this.handleChange} />
                                 {
                                     this.state.username === '' ? null

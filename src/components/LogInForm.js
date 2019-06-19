@@ -14,13 +14,15 @@ export default class LogInForm extends React.Component {
     get initialState() {
         return {
             email: '',
-            password: ''
+            password: '',
+            error: ''
         };
     }
 
     handleChange(event) {
         this.setState({
-            [event.target.id]: event.target.value
+            [event.target.id]: event.target.value,
+            error: ''
         });
     }
 
@@ -31,6 +33,7 @@ export default class LogInForm extends React.Component {
 
     signIn() {
         console.log(this.state);
+
         this.props.firebase.auth().signInWithEmailAndPassword(
             this.state.email,
             this.state.password
@@ -40,8 +43,21 @@ export default class LogInForm extends React.Component {
             document.getElementById('loginForm').reset();
             this.setState(this.initialState);
             this.props.close();
-        }).catch(function (error) {
-            console.log(error)
+        }).catch(error => {
+            if(error.code === 'auth/invalid-email' || error.code === 'auth/user-not-found'){
+                this.setState({
+                    error: 'Invalid email ID'
+                })
+            } else if (error.code === 'auth/wrong-password') {
+                this.setState({
+                    error: 'Invalid Password'
+                })
+            } else {
+                this.setState({
+                    error: 'Error'
+                })
+            }
+            // console.log(error)
         })
     }
 
@@ -64,6 +80,13 @@ export default class LogInForm extends React.Component {
                 <div className="modal">
                     <button className="close" onClick={this.props.close}> &times; </button>
                     <div className="header">Login </div>
+                    {
+                        this.state.error !== '' ?
+                            <div>
+                                <p className="errorMessage">{this.state.error}</p>
+                            </div>
+                            : null
+                    }
                     <div className="content">
                         <form id="loginForm">
                             <div className="input_field">
@@ -80,10 +103,13 @@ export default class LogInForm extends React.Component {
                         <button
                             className="button"
                             onClick={this.handleSubmit}
+                            disabled={this.state.email === '' || this.state.password === ''}
                         >
                             Login
                         </button>
                     </div>
+                    
+
                 </div>
             </Popup>
         );

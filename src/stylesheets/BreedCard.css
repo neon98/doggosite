@@ -1,8 +1,10 @@
 .card {
     border-radius: 4px;
-    margin: 10px 3px;
-    box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 0 3px 10px 3px;
+    background: white;
+    /* box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, 0.2); */
     word-wrap: break-word;
+    border: 1px solid rgb(234, 234, 234);
     -webkit-column-break-inside: avoid;
     -moz-column-break-inside: avoid;
     page-break-inside: avoid;
