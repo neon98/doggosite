@@ -1,6 +1,8 @@
-/* eslint-disable no-loop-func */
 import React from 'react';
+
 import BreedCard from './BreedCard';
+import Loader from './Loader';
+
 import '../stylesheets/OurCommunityPage.css'
 import Media from 'react-media';
 
@@ -42,7 +44,7 @@ export default class OurCommunityPage extends React.Component {
                                 : this.setState({ mobileUI: false })
                     }
                 />
-                {breedCards}
+                {breedCards.length ? breedCards : <Loader/>}
             </div>
 
         );

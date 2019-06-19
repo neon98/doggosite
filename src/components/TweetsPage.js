@@ -34,17 +34,17 @@ export default class TweetsPage extends React.Component {
                 <TwitterTimelineEmbed
                     sourceType="profile"
                     screenName="dog_feelings"
-                    options={{ height: 600, width: 300 }}
+                    options={{ height: 600, width: 290 }}
                 />
                 <TwitterTimelineEmbed
                     sourceType="profile"
                     screenName="mydogiscutest"
-                    options={{ height: 600, width: 300 }}
+                    options={{ height: 600, width: 290 }}
                 />
                 <TwitterTimelineEmbed
                     sourceType="profile"
                     screenName="dog_rates"
-                    options={{ height: 600, width: 300 }}
+                    options={{ height: 600, width: 290 }}
                 />
             </div>
 

@@ -1,9 +1,14 @@
 import React from 'react';
+
+import Postcard from './PostCard';
+import Loader from './Loader';
+
 import '../stylesheets/Homepage.css'
+
 import treat from '../assets/treat.png'
 import pat from '../assets/pat.png'
 import boop from '../assets/dog.png'
-import Postcard from './PostCard';
+
 
 function ProfileCard(props) {
     var styles = {
@@ -227,7 +232,7 @@ export default class HomePage extends React.Component {
             <div className="container">
                 <div className="leftDiv">
                     {
-                        posts
+                        posts.length ? posts : <Loader/>
                     }
                 </div>
                 <div className="rightDiv">

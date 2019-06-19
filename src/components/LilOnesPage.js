@@ -1,4 +1,6 @@
 import React from 'react';
+import Loader from './Loader';
+
 import '../stylesheets/LilOnesPage.css';
 
 export default class LilOnesPage extends React.Component {
@@ -33,7 +35,7 @@ export default class LilOnesPage extends React.Component {
         return (
             <div className="gridContainer">
                 {
-                    images
+                    this.state.data.length ? images : <Loader/>
                 }
             </div>
         );
