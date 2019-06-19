@@ -8,7 +8,7 @@ import '../stylesheets/Homepage.css'
 import treat from '../assets/treat.png'
 import pat from '../assets/pat.png'
 import boop from '../assets/dog.png'
-
+import bulb from '../assets/light-bulb-on.png'
 
 function ProfileCard(props) {
     var styles = {
@@ -237,7 +237,7 @@ export default class HomePage extends React.Component {
                 </div>
                 <div className="rightDiv">
                     <div className="fact">
-                        <p>{
+                        <p><img src={bulb} style={{height: '16px', width:'18px', marginRight:'5px' }} alt=""/>{
                             this.state.fact
                         }</p>
                     </div>
