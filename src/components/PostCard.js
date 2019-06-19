@@ -78,6 +78,7 @@ export default class PostCard extends React.Component {
         }
     }
     updatePTBInDB(str, add) {
+        this.updatePTBinUI(str, add)
         var dbRef = this.props.firebase.firestore();
         dbRef.collection('posts').doc(this.state.post.postid).update({
             [str]: this.props.firebase.firestore.FieldValue.increment(add ? 1 : -1),
@@ -89,23 +90,26 @@ export default class PostCard extends React.Component {
             dbRef.collection('users').doc(this.state.post.userid).update({
                 ['total' + str]: this.props.firebase.firestore.FieldValue.increment(add ? 1 : -1)
             }).then(() => {
-                var temp_post = this.state.post;
-                temp_post[str] = add ? temp_post[str] + 1 : temp_post[str] - 1;
-                str = str.substring(0, str.length - 1);
-                this.setState({
-                    [str]: add,
-                    post: temp_post
-                });
+
             }).catch(error => {
                 console.log(error);
             });
 
         }).catch(error => {
+            this.updatePTBinUI(str, !add);
             console.log(error);
         });
     }
 
-
+    updatePTBinUI(str, add){
+        var temp_post = this.state.post;
+        temp_post[str] = add ? temp_post[str] + 1 : temp_post[str] - 1;
+        str = str.substring(0, str.length - 1);
+        this.setState({
+            [str]: add,
+            post: temp_post
+        });
+    }
 
     render() {
         var styles = this.props.styles;

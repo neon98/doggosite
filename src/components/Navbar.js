@@ -1,5 +1,4 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import paw from '../assets/paw.png'
 import home from '../assets/home.png'
@@ -11,15 +10,40 @@ import '../stylesheets/Navbar.css';
 
 
 export default class Navbar extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            active: 'Home'
+        }
+        this.setNavState = this.setNavState.bind(this);
+    } 
+
+    setNavState(str){
+        this.setState({
+            active: str
+        })
+    }
     render() {
+        var highlight = {
+            background: 'rgb(232, 232, 232)'
+        }
         return (
             <div className="navbar_wrapper">
                 <ul className="navbar">
                     <li className="navbar_brand_icon_wrapper">
-                        <img src={paw} alt="paw" className="navbar_brand_icon" />
+                        <img 
+                            src={paw} alt="paw"  
+                            className="navbar_brand_icon" 
+                            onClick={() => { this.props.setPage("Home") }} 
+                        />
                     </li>
                     <li>
-                        <div className="navbar_item" onClick={() => { this.props.setPage("Home") }}>
+                        <div 
+                            className="navbar_item" 
+                            onClick={() => { this.setNavState("Home"); this.props.setPage("Home") }}
+                            style={this.state.active === 'Home' ? highlight :null }
+                        >
                             <img src={home} alt="home" className="navbar_item_icon" />
                             {
                                 this.props.mobileUI ? null :
@@ -28,8 +52,12 @@ export default class Navbar extends React.Component {
                         </div>
                     </li>
                     <li>
-                        <div className="navbar_item" onClick={() => { this.props.setPage("Our Community") }}>
-                            <img src={breeds} alt="breeds" className="navbar_item_icon" style={{height:'25px', width:'30px'}}/>
+                        <div 
+                            className="navbar_item" 
+                            onClick={() => { this.setNavState("Our Community"); this.props.setPage("Our Community") }}
+                            style={this.state.active === 'Our Community' ? highlight :null }
+                        >
+                            <img src={breeds} alt="breeds" className="navbar_item_icon" style={{ height: '25px', width: '30px' }} />
                             {
                                 this.props.mobileUI ? null :
                                     <p className="navbar_item_text">Our Community</p>
@@ -37,7 +65,11 @@ export default class Navbar extends React.Component {
                         </div>
                     </li>
                     <li>
-                        <div className="navbar_item" onClick={() => { this.props.setPage("Lil Ones") }}>
+                        <div 
+                            className="navbar_item" 
+                            onClick={() => { this.setNavState("Lil Ones"); this.props.setPage("Lil Ones") }}
+                            style={this.state.active === 'Lil Ones' ? highlight :null }
+                        >
                             <img src={puppy} alt="puppies" className="navbar_item_icon" />
                             {
                                 this.props.mobileUI ? null :
@@ -46,7 +78,11 @@ export default class Navbar extends React.Component {
                         </div>
                     </li>
                     <li>
-                        <div className="navbar_item" onClick={() => { this.props.setPage("Tweets") }}>
+                        <div 
+                            className="navbar_item" 
+                            onClick={() => { this.setNavState("Tweets"); this.props.setPage("Tweets") }}
+                            style={this.state.active === 'Tweets' ? highlight :null }
+                        >
                             <img src={tweet} alt="tweets" className="navbar_item_icon" />
                             {
                                 this.props.mobileUI ? null :
@@ -59,20 +95,20 @@ export default class Navbar extends React.Component {
                             <div className="navbar_buttons">
                                 <li>
                                     <div className="navbar_item">
-                                        <button 
-                                            className="navbar_item_button" 
+                                        <button
+                                            className="navbar_item_button"
                                             style={{ width: 'auto' }}
                                             onClick={() => { this.props.setPage("Profile") }}
-                                        > 
-                                        <img src={user} className="navbar_item_icon" style={{margin:'0',marginTop: '5px'}}alt=""/>
-                                        {/* <FontAwesomeIcon icon="user" />  */}
-                                        {/* <i class="far fa-user"></i> */}
+                                        >
+                                            <img src={user} className="navbar_item_icon" style={{ margin: '0', marginTop: '5px' }} alt="" />
+                                            {/* <FontAwesomeIcon icon="user" />  */}
+                                            {/* <i class="far fa-user"></i> */}
                                         </button>
                                     </div>
                                 </li>
                                 <li>
                                     <div className="navbar_item">
-                                        <button className="navbar_item_button" onClick={() => { this.props.resetUser() }}> Log out </button>
+                                        <button className="navbar_item_button" onClick={() => { this.props.resetUser() }}> Logout </button>
                                     </div>
                                 </li>
                             </div>
@@ -80,12 +116,12 @@ export default class Navbar extends React.Component {
                             <div className="navbar_buttons">
                                 <li>
                                     <div className="navbar_item">
-                                        <button className="navbar_item_button" onClick={() => {this.props.openLoginModal()}}> Login </button>
+                                        <button className="navbar_item_button" onClick={() => { this.props.openLoginModal() }}> Login </button>
                                     </div>
                                 </li>
                                 <li>
                                     <div className="navbar_item">
-                                        <button className="navbar_item_button" onClick={() => {this.props.openSignUpModal()}}> Signup </button>
+                                        <button className="navbar_item_button" onClick={() => { this.props.openSignUpModal() }}> Signup </button>
                                     </div>
                                 </li>
                             </div>
