@@ -13,11 +13,11 @@ import LilOnesPage from './components/LilOnesPage';
 import TweetsPage from './components/TweetsPage';
 
 import fontawesome from '@fortawesome/fontawesome'
-import { faCheck, faExclamationCircle, faPencilAlt, faUser } from '@fortawesome/fontawesome-free-solid'
+import { faCheck, faExclamationCircle, faPencilAlt } from '@fortawesome/fontawesome-free-solid'
 
 import './App.css';
 
-fontawesome.library.add(faCheck, faExclamationCircle, faPencilAlt, faUser);
+fontawesome.library.add(faCheck, faExclamationCircle, faPencilAlt);
 firebase.initializeApp(firebaseConfig);
 
 class App extends React.Component {

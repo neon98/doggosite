@@ -1,5 +1,4 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import paw from '../assets/paw.png'
 import home from '../assets/home.png'
